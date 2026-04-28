@@ -6,7 +6,7 @@ var accumulator: float = 0.0
 var tps: float = 0.0
 var tick_duration: float = 0.0
 
-signal day_passed
+signal day_passed(day: int)
 
 func set_tps(_tps: float) -> void:
 	tps = _tps
@@ -19,6 +19,7 @@ func _process(delta: float) -> void:
 	accumulator += delta
 	
 	while accumulator >= tick_duration:
-		day_passed.emit()
+		day += 1
+		day_passed.emit(day)
 		
 		accumulator -= tick_duration

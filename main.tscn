@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://digemsqhh4wfs" path="res://terrain_tilesheet.svg" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://c03dcmy8iqho5" path="res://observer_camera.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://bxxwpjrlygmrs" path="res://day_counter.gd" id="3_h2yge"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0xm2m"]
 texture = ExtResource("1_ig7tw")
@@ -20,3 +21,11 @@ tile_set = SubResource("TileSet_h2yge")
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 script = ExtResource("2_0xm2m")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1734592792]
+
+[node name="DayCounter" type="Label" parent="CanvasLayer" unique_id=2058725361]
+offset_right = 48.0
+offset_bottom = 23.0
+text = "Day: 1"
+script = ExtResource("3_h2yge")
