@@ -33,7 +33,6 @@ func initialize() -> void:
 	TimeManager.connect("day_passed", tick)
 	
 	
-
 func update_cells() -> void:
 	for i in range(cell_count):
 		cells[i].update()
