@@ -1,3 +1,20 @@
 [gd_scene format=3 uid="uid://43hb11is8lmv"]
 
+[ext_resource type="Texture2D" uid="uid://digemsqhh4wfs" path="res://terrain_tilesheet.svg" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://c03dcmy8iqho5" path="res://observer_camera.gd" id="2_0xm2m"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0xm2m"]
+texture = ExtResource("1_ig7tw")
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_h2yge"]
+sources/0 = SubResource("TileSetAtlasSource_0xm2m")
+
 [node name="main" type="Node2D" unique_id=751366935]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=955779723]
+tile_set = SubResource("TileSet_h2yge")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1269354386]
+script = ExtResource("2_0xm2m")
