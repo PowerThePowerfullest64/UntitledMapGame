@@ -2,7 +2,7 @@ extends Camera2D
 
 @export var speed: float = 750.0
 @export var zoom_sensitivity: float = 1.0
-@export var zoom_rate: float = 10.0
+@export var zoom_rate: float = 5.0
 
 @export var min_zoom: float = 0.1
 @export var max_zoom: float = 10.0

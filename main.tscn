@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://digemsqhh4wfs" path="res://terrain_tilesheet.svg" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://c03dcmy8iqho5" path="res://observer_camera.gd" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://bxxwpjrlygmrs" path="res://day_counter.gd" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://bdyy02uwymm1m" path="res://fps_tps_counter.gd" id="4_1bvp3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0xm2m"]
 texture = ExtResource("1_ig7tw")
@@ -25,7 +26,16 @@ script = ExtResource("2_0xm2m")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1734592792]
 
 [node name="DayCounter" type="Label" parent="CanvasLayer" unique_id=2058725361]
-offset_right = 48.0
+offset_left = 4.0
+offset_right = 52.0
 offset_bottom = 23.0
 text = "Day: 1"
 script = ExtResource("3_h2yge")
+
+[node name="fps_tpsCounter" type="Label" parent="CanvasLayer" unique_id=1325219139]
+offset_left = 4.0
+offset_top = 21.0
+offset_right = 74.0
+offset_bottom = 44.0
+text = "FPS / TPS"
+script = ExtResource("4_1bvp3")

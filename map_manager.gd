@@ -2,8 +2,8 @@ extends Node
 
 var population: PackedFloat32Array
 
-const width: int = 512
-const height: int = 512
+const width: int = 256
+const height: int = 256
 
 var cell_count: int # how many cells exist
 
@@ -11,12 +11,11 @@ var tilemaplayer: TileMapLayer
 
 var updating_cells: bool = false
 var cell_index: int = 0
-var cell_updates_per_frame: int = 0
+const CHUNK_SIZE: int = 200000
 
 var noise: FastNoiseLite = FastNoiseLite.new()
 
 func initialize() -> void:
-	
 	cell_count = width * height
 	
 	tilemaplayer = get_node("/root/main/TileMapLayer")
@@ -57,19 +56,19 @@ func _process(_delta: float) -> void:
 	
 	var cells_left: int = cell_count - cell_index
 	
-	var count: int = min(cell_updates_per_frame, cells_left)
+	var count: int = min(CHUNK_SIZE, cells_left)
 	var end_index: int = cell_index + count
 	
 	for i in range(cell_index, end_index):
 		population[i] *= 1.005
 	
-	cell_index += end_index
+	cell_index = end_index
 
 func tick(_day: int) -> void:
+	if updating_cells:
+		print("New day started before cells had been updated for last day; maybe increase chunk size?")
+	
 	updating_cells = true
 	cell_index = 0
-	
-	var frames_to_update_cells: int = int(60.0 / TimeManager.tps)
-	cell_updates_per_frame = ceil(cell_count / float(frames_to_update_cells))
 	
 	print("Started Updating Cells")
