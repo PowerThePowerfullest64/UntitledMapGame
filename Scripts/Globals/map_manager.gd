@@ -53,7 +53,7 @@ func initialize() -> void:
 		
 		terrain_type[i] = "grass" if value > 0.45 else "water"
 		
-		var atlas: Vector2i = Vector2i.ZERO if terrain_type[i] == "grass" else Vector2i(1, 0) if terrain_type[i] == "water" else "water"
+		var atlas: Vector2i = Vector2i.ZERO if terrain_type[i] == "grass" else Vector2i(1, 0) if terrain_type[i] == "water" else Vector2i.ZERO
 		
 		tilemaplayer.set_cell(pos_2d, 0, atlas)
 		
