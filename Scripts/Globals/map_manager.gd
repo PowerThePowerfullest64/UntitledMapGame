@@ -5,8 +5,8 @@ var selected: PackedByteArray
 var owner_id: PackedInt32Array
 var terrain_type: PackedStringArray
 
-const width: int = 256
-const height: int = 256
+const width: int = 128
+const height: int = 128
 
 var cell_count: int # how many cells exist
 
@@ -15,7 +15,7 @@ var cell_length: int = 16
 
 var updating_cells: bool = false
 var cell_index: int = 0
-const CHUNK_SIZE: int = 200000 # cells updaated per frame: higher = more work in less frames
+const CHUNK_SIZE: int = 200000 # cells updated per frame: higher = more work in less frames
 
 var noise: FastNoiseLite = FastNoiseLite.new()
 

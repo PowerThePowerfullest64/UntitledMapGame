@@ -59,40 +59,39 @@ offset_bottom = 203.0
 
 [node name="CELLINFO" type="Label" parent="CanvasLayer/CellInfoPanel" unique_id=2095937919]
 layout_mode = 0
-offset_left = 49.0
-offset_right = 189.0
+offset_right = 249.0
 offset_bottom = 23.0
 text = "----- CELL INFO -----"
 horizontal_alignment = 1
 
 [node name="CellID" type="Label" parent="CanvasLayer/CellInfoPanel" unique_id=1230875860]
 layout_mode = 0
-offset_left = 4.0
-offset_top = 21.0
-offset_right = 89.0
-offset_bottom = 44.0
+offset_left = 12.0
+offset_top = 27.0
+offset_right = 97.0
+offset_bottom = 50.0
 text = "CellID = "
 
 [node name="Pop" type="Label" parent="CanvasLayer/CellInfoPanel" unique_id=463174442]
 layout_mode = 0
-offset_left = 4.0
-offset_top = 42.0
-offset_right = 89.0
-offset_bottom = 65.0
+offset_left = 12.0
+offset_top = 48.0
+offset_right = 97.0
+offset_bottom = 71.0
 text = "Pop = "
 
 [node name="OwnerID" type="Label" parent="CanvasLayer/CellInfoPanel" unique_id=542138631]
 layout_mode = 0
-offset_left = 4.0
-offset_top = 64.0
-offset_right = 91.0
-offset_bottom = 87.0
+offset_left = 12.0
+offset_top = 70.0
+offset_right = 99.0
+offset_bottom = 93.0
 text = "OwnerID = "
 
 [node name="TerrainType" type="Label" parent="CanvasLayer/CellInfoPanel" unique_id=358827455]
 layout_mode = 0
-offset_left = 4.0
-offset_top = 86.0
-offset_right = 115.0
-offset_bottom = 109.0
+offset_left = 12.0
+offset_top = 92.0
+offset_right = 123.0
+offset_bottom = 115.0
 text = "TerrainType = "

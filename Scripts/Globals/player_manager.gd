@@ -5,7 +5,7 @@ var selected_cell: Vector2i
 var selected_cell_id: int = 0
 
 var hover_color: Color = Color(1, 1, 1, 0.25)
-var select_color: Color = Color(1, 1, 1, 0.625)
+var select_color: Color = Color(1, 1, 1, 0.35)
 
 func _ready() -> void:
 	pass
@@ -48,5 +48,6 @@ func _draw() -> void:
 	if cell_selected:
 		var rect: Rect2 = Rect2(MapManager.to_screen_pos(selected_cell), Vector2(MapManager.cell_length, MapManager.cell_length))
 		
+		draw_rect(rect, Color.YELLOW, false)
 		draw_rect(rect, select_color)
 	
