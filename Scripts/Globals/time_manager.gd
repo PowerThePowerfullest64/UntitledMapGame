@@ -8,9 +8,9 @@ var tick_duration: float = 0.0
 
 signal day_passed(day: int)
 
-const SPEED1: float = 1.0
-const SPEED2: float = 2.0
-const SPEED3: float = 8.0
+const SPEED1: float = 0.5
+const SPEED2: float = 1.0
+const SPEED3: float = 6.0
 const SPEED4: float = 24.0
 
 func set_tps(_tps: float) -> void:

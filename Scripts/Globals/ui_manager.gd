@@ -9,6 +9,7 @@ var no_access_text: String = "none"
 @export var cell_id: Label
 @export var pop_counter: Label
 @export var owner_id: Label
+@export var terrain_type: Label
 
 func _ready() -> void:
 	TimeManager.day_passed.connect(_on_day_passed)
@@ -18,6 +19,7 @@ func _process(_delta: float) -> void:
 	update_cell_id()
 	update_pop_counter()
 	update_cell_owner()
+	update_terrain_type()
 
 func _on_day_passed(day: int) -> void:
 	update_day_counter(day)
@@ -54,3 +56,10 @@ func update_cell_owner() -> void:
 		return
 	
 	owner_id.text = "OwnerID = " + str(cell_owner)
+
+func update_terrain_type() -> void:
+	if not PlayerManager.cell_selected:
+		terrain_type.text = "TerrainType = " + no_access_text
+		return
+	
+	terrain_type.text = "TerrainType = " + MapManager.terrain_type[PlayerManager.selected_cell_id]

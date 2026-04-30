@@ -3,9 +3,10 @@ extends Node
 var population: PackedFloat32Array
 var selected: PackedByteArray
 var owner_id: PackedInt32Array
+var terrain_type: PackedStringArray
 
-const width: int = 128
-const height: int = 128
+const width: int = 256
+const height: int = 256
 
 var cell_count: int # how many cells exist
 
@@ -14,7 +15,7 @@ var cell_length: int = 16
 
 var updating_cells: bool = false
 var cell_index: int = 0
-const CHUNK_SIZE: int = 200000
+const CHUNK_SIZE: int = 200000 # cells updaated per frame: higher = more work in less frames
 
 var noise: FastNoiseLite = FastNoiseLite.new()
 
@@ -27,14 +28,17 @@ func initialize() -> void:
 	population = PackedFloat32Array()
 	selected = PackedByteArray()
 	owner_id = PackedInt32Array()
+	terrain_type = PackedStringArray()
 	
 	population.resize(cell_count)
 	selected.resize(cell_count)
 	owner_id.resize(cell_count)
+	terrain_type.resize(cell_count)
 	
 	population.fill(100.0)
 	selected.fill(0)
 	owner_id.fill(-1)
+	terrain_type.fill("water")
 	
 	noise.seed = randi_range(0, (1 << 63) - 1)
 	noise.frequency = 0.01
@@ -46,7 +50,10 @@ func initialize() -> void:
 		
 		var pos_2d: Vector2i = Vector2i(x, y)
 		var value: float = (noise.get_noise_2d(x, y) + 1.0) * 0.5
-		var atlas: Vector2i = Vector2i.ZERO if value < 0.45 else Vector2i(1, 0)
+		
+		terrain_type[i] = "grass" if value > 0.45 else "water"
+		
+		var atlas: Vector2i = Vector2i.ZERO if terrain_type[i] == "grass" else Vector2i(1, 0) if terrain_type[i] == "water" else "water"
 		
 		tilemaplayer.set_cell(pos_2d, 0, atlas)
 		

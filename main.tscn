@@ -23,7 +23,7 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 script = ExtResource("2_0xm2m")
 
-[node name="UIManager" type="Control" parent="." unique_id=1342489894 node_paths=PackedStringArray("day_counter", "fps_counter", "cell_id", "pop_counter", "owner_id")]
+[node name="UIManager" type="Control" parent="." unique_id=1342489894 node_paths=PackedStringArray("day_counter", "fps_counter", "cell_id", "pop_counter", "owner_id", "terrain_type")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -34,6 +34,7 @@ fps_counter = NodePath("../CanvasLayer/FPS_TPS")
 cell_id = NodePath("../CanvasLayer/CellInfoPanel/CellID")
 pop_counter = NodePath("../CanvasLayer/CellInfoPanel/Pop")
 owner_id = NodePath("../CanvasLayer/CellInfoPanel/OwnerID")
+terrain_type = NodePath("../CanvasLayer/CellInfoPanel/TerrainType")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1734592792]
 
@@ -54,7 +55,7 @@ text = "FPS / TPS"
 offset_left = 20.0
 offset_top = 78.0
 offset_right = 269.0
-offset_bottom = 189.0
+offset_bottom = 203.0
 
 [node name="CELLINFO" type="Label" parent="CanvasLayer/CellInfoPanel" unique_id=2095937919]
 layout_mode = 0
@@ -87,3 +88,11 @@ offset_top = 64.0
 offset_right = 91.0
 offset_bottom = 87.0
 text = "OwnerID = "
+
+[node name="TerrainType" type="Label" parent="CanvasLayer/CellInfoPanel" unique_id=358827455]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 86.0
+offset_right = 115.0
+offset_bottom = 109.0
+text = "TerrainType = "
