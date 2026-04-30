@@ -13,6 +13,7 @@ func add_cell(cell_id: int) -> bool:
 	
 	cells.append(cell_id)
 	area += 1
+	MapManager.owner_id[cell_id] = id
 	
 	return true
 
@@ -21,6 +22,7 @@ func remove_cell(cell_id: int) -> bool:
 	
 	cells.erase(cell_id)
 	area -= 1
+	MapManager.owner_id[cell_id] = -1
 	
 	return true
 

@@ -1,13 +1,16 @@
 extends Node
 
 var population: PackedFloat32Array
+var selected: PackedByteArray
+var owner_id: PackedInt32Array
 
-const width: int = 256
-const height: int = 256
+const width: int = 128
+const height: int = 128
 
 var cell_count: int # how many cells exist
 
 var tilemaplayer: TileMapLayer
+var cell_length: int = 16
 
 var updating_cells: bool = false
 var cell_index: int = 0
@@ -19,18 +22,25 @@ func initialize() -> void:
 	cell_count = width * height
 	
 	tilemaplayer = get_node("/root/main/TileMapLayer")
+	tilemaplayer.scale = Vector2.ONE * cell_length / 16.0 # 16 is default tile size from tileset
 	
 	population = PackedFloat32Array()
+	selected = PackedByteArray()
+	owner_id = PackedInt32Array()
 	
 	population.resize(cell_count)
+	selected.resize(cell_count)
+	owner_id.resize(cell_count)
 	
-	noise.seed = randi_range(0, pow(2, 31)-1)
-	noise.frequency = 0.005
+	population.fill(100.0)
+	selected.fill(0)
+	owner_id.fill(-1)
+	
+	noise.seed = randi_range(0, (1 << 63) - 1)
+	noise.frequency = 0.01
 	noise.fractal_octaves = 24
 	
 	for i in range(cell_count):
-		population[i] = 100.0
-		
 		var x: int = i % width
 		var y: int = i / width
 		
@@ -51,7 +61,7 @@ func _process(_delta: float) -> void:
 	
 	if cell_index >= cell_count:
 		updating_cells = false
-		print("Finished Updating Cells")
+		#print("Finished Updating Cells")
 		return
 	
 	var cells_left: int = cell_count - cell_index
@@ -71,4 +81,16 @@ func tick(_day: int) -> void:
 	updating_cells = true
 	cell_index = 0
 	
-	print("Started Updating Cells")
+	#print("Started Updating Cells")
+
+func to_map_pos(pos: Vector2) -> Vector2i:
+	return pos / cell_length
+
+func to_screen_pos(pos: Vector2i) -> Vector2:
+	return pos * cell_length
+
+func within_bounds(pos: Vector2i) -> bool:
+	return pos.x >= 0 and pos.x < width and pos.y >= 0 and pos.y < height
+
+func pos_to_idx(pos: Vector2i) -> int:
+	return pos.y * width + pos.x
