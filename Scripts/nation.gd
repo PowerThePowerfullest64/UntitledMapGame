@@ -1,19 +1,32 @@
 class_name Nation extends Object
 
+var title: String
 var id: int
 var population: float = 0.0
 var cells: Array[int] = [] # the cells which it owns stored as ids
 var area: int = 0
+var capital: float = 0.0
+var tax_rate: float = 1.0 # capital per person
 
-func _init(_id: int) -> void:
+func _init(_title: String, _id: int) -> void:
+	title = _title
 	id = _id
 
 func add_cell(cell_id: int) -> bool:
 	if cells.has(cell_id): return false
 	
+	var owner_id: int = MapManager.owner_id[cell_id]
+	
+	if owner_id == -1: remove_cell(cell_id)
+	
+	if owner_id != -1:
+		NationManager.nations[owner_id].remove_cell(cell_id)
+	
 	cells.append(cell_id)
 	area += 1
 	MapManager.owner_id[cell_id] = id
+	
+	NationManager.tilemaplayer.set_cell(MapManager.idx_to_pos(cell_id), 0, Vector2i(id, 0))
 	
 	return true
 
@@ -24,10 +37,17 @@ func remove_cell(cell_id: int) -> bool:
 	area -= 1
 	MapManager.owner_id[cell_id] = -1
 	
+	NationManager.tilemaplayer.set_cell(MapManager.idx_to_pos(cell_id), 0, Vector2i(3, 0))
+	
 	return true
 
 func update() -> void:
 	population = 0.0
 	for cell_id in cells:
-		population += MapManager.cells[cell_id].population
+		population += MapManager.population[cell_id]
 	
+	var income: float = 0.0
+	for cell_id in cells:
+		income += MapManager.population[cell_id] * tax_rate
+	var expenses: float = 0.0
+	capital += income - expenses

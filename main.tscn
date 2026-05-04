@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://digemsqhh4wfs" path="res://terrain_tilesheet.svg" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://c03dcmy8iqho5" path="res://Scripts/observer_camera.gd" id="2_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://43bk8royxski" path="res://political_tilesheet.svg" id="2_1bvp3"]
 [ext_resource type="Script" uid="uid://r76x31duv3gb" path="res://Scripts/Globals/ui_manager.gd" id="5_lquwl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0xm2m"]
@@ -12,18 +13,32 @@ texture = ExtResource("1_ig7tw")
 [sub_resource type="TileSet" id="TileSet_h2yge"]
 sources/0 = SubResource("TileSetAtlasSource_0xm2m")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lquwl"]
+texture = ExtResource("2_1bvp3")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_7mycd"]
+sources/0 = SubResource("TileSetAtlasSource_lquwl")
+
 [node name="main" type="Node2D" unique_id=751366935]
 
-[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=955779723]
+[node name="TerrainLayer" type="TileMapLayer" parent="." unique_id=955779723]
 z_index = -5
 tile_set = SubResource("TileSet_h2yge")
+
+[node name="PoliticalLayer" type="TileMapLayer" parent="." unique_id=723631783]
+modulate = Color(1, 1, 1, 0.6862745)
+z_index = -4
+tile_set = SubResource("TileSet_7mycd")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1269354386]
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 script = ExtResource("2_0xm2m")
 
-[node name="UIManager" type="Control" parent="." unique_id=1342489894 node_paths=PackedStringArray("day_counter", "fps_counter", "cell_id", "pop_counter", "owner_id", "terrain_type")]
+[node name="UIManager" type="Control" parent="." unique_id=1342489894 node_paths=PackedStringArray("day_counter", "fps_counter", "cell_id", "cell_pop", "cell_owner_id", "cell_terrain_type", "nation_title", "nation_id", "nation_pop", "nation_capital", "nation_area")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -32,9 +47,14 @@ script = ExtResource("5_lquwl")
 day_counter = NodePath("../CanvasLayer/Day")
 fps_counter = NodePath("../CanvasLayer/FPS_TPS")
 cell_id = NodePath("../CanvasLayer/CellInfoPanel/CellID")
-pop_counter = NodePath("../CanvasLayer/CellInfoPanel/Pop")
-owner_id = NodePath("../CanvasLayer/CellInfoPanel/OwnerID")
-terrain_type = NodePath("../CanvasLayer/CellInfoPanel/TerrainType")
+cell_pop = NodePath("../CanvasLayer/CellInfoPanel/Pop")
+cell_owner_id = NodePath("../CanvasLayer/CellInfoPanel/OwnerID")
+cell_terrain_type = NodePath("../CanvasLayer/CellInfoPanel/TerrainType")
+nation_title = NodePath("../CanvasLayer/NationInfoPanel/NationTitle")
+nation_id = NodePath("../CanvasLayer/NationInfoPanel/NationID")
+nation_pop = NodePath("../CanvasLayer/NationInfoPanel/Pop")
+nation_capital = NodePath("../CanvasLayer/NationInfoPanel/Capital")
+nation_area = NodePath("../CanvasLayer/NationInfoPanel/Area")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1734592792]
 
@@ -70,7 +90,7 @@ offset_left = 12.0
 offset_top = 27.0
 offset_right = 97.0
 offset_bottom = 50.0
-text = "CellID = "
+text = "ID = "
 
 [node name="Pop" type="Label" parent="CanvasLayer/CellInfoPanel" unique_id=463174442]
 layout_mode = 0
@@ -95,3 +115,56 @@ offset_top = 92.0
 offset_right = 123.0
 offset_bottom = 115.0
 text = "TerrainType = "
+
+[node name="NationInfoPanel" type="Panel" parent="CanvasLayer" unique_id=1596137348]
+offset_left = 20.0
+offset_top = 212.0
+offset_right = 269.0
+offset_bottom = 364.0
+
+[node name="NATIONINFO" type="Label" parent="CanvasLayer/NationInfoPanel" unique_id=666514744]
+layout_mode = 0
+offset_right = 249.0
+offset_bottom = 23.0
+text = "----- NATION INFO -----"
+horizontal_alignment = 1
+
+[node name="NationTitle" type="Label" parent="CanvasLayer/NationInfoPanel" unique_id=748339939]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 29.0
+offset_right = 97.0
+offset_bottom = 52.0
+text = "Title = "
+
+[node name="NationID" type="Label" parent="CanvasLayer/NationInfoPanel" unique_id=352568245]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 52.0
+offset_right = 97.0
+offset_bottom = 75.0
+text = "ID = "
+
+[node name="Pop" type="Label" parent="CanvasLayer/NationInfoPanel" unique_id=1063705554]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 73.0
+offset_right = 97.0
+offset_bottom = 96.0
+text = "Pop = "
+
+[node name="Capital" type="Label" parent="CanvasLayer/NationInfoPanel" unique_id=1841505412]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 95.0
+offset_right = 99.0
+offset_bottom = 118.0
+text = "Capital = "
+
+[node name="Area" type="Label" parent="CanvasLayer/NationInfoPanel" unique_id=1189099044]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 118.0
+offset_right = 99.0
+offset_bottom = 141.0
+text = "Area = "

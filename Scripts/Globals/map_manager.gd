@@ -22,7 +22,7 @@ var noise: FastNoiseLite = FastNoiseLite.new()
 func initialize() -> void:
 	cell_count = width * height
 	
-	tilemaplayer = get_node("/root/main/TileMapLayer")
+	tilemaplayer = get_node("/root/main/TerrainLayer")
 	tilemaplayer.scale = Vector2.ONE * cell_length / 16.0 # 16 is default tile size from tileset
 	
 	population = PackedFloat32Array()
@@ -77,7 +77,7 @@ func _process(_delta: float) -> void:
 	var end_index: int = cell_index + count
 	
 	for i in range(cell_index, end_index):
-		population[i] *= 1.005
+		population[i] *= 1.0025
 	
 	cell_index = end_index
 
@@ -101,3 +101,8 @@ func within_bounds(pos: Vector2i) -> bool:
 
 func pos_to_idx(pos: Vector2i) -> int:
 	return pos.y * width + pos.x
+
+func idx_to_pos(idx: int) -> Vector2i:
+	var pos: Vector2i = Vector2i(idx % width, idx / width)
+	
+	return pos

@@ -1,6 +1,6 @@
 extends Node2D
 
-var cell_selected: bool = false
+var is_cell_selected: bool = false
 var selected_cell: Vector2i
 var selected_cell_id: int = 0
 
@@ -20,18 +20,18 @@ func _process(_delta: float) -> void:
 		
 		var index: int = MapManager.pos_to_idx(cell_pos)
 		
-		if cell_pos == selected_cell and cell_selected:
+		if cell_pos == selected_cell and is_cell_selected:
 			MapManager.selected[index] = 0
-			cell_selected = false
+			is_cell_selected = false
 			return
 		
-		if cell_selected:
+		if is_cell_selected:
 			MapManager.selected.fill(0)
 		
 		MapManager.selected[index] = 1
 		selected_cell = cell_pos
 		selected_cell_id = index
-		cell_selected = true
+		is_cell_selected = true
 	
 	queue_redraw()
 
@@ -45,7 +45,7 @@ func _draw() -> void:
 		
 		draw_rect(rect, hover_color)
 	
-	if cell_selected:
+	if is_cell_selected:
 		var rect: Rect2 = Rect2(MapManager.to_screen_pos(selected_cell), Vector2(MapManager.cell_length, MapManager.cell_length))
 		
 		draw_rect(rect, Color.YELLOW, false)
