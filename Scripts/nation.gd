@@ -6,7 +6,7 @@ var population: float = 0.0
 var cells: Array[int] = [] # the cells which it owns stored as ids
 var area: int = 0
 var capital: float = 0.0
-var tax_rate: float = 1.0 # capital per person
+var tax_rate: float = 0.01 # capital per person per day
 
 func _init(_title: String, _id: int) -> void:
 	title = _title
@@ -28,6 +28,8 @@ func add_cell(cell_id: int) -> bool:
 	
 	NationManager.tilemaplayer.set_cell(MapManager.idx_to_pos(cell_id), 0, Vector2i(id, 0))
 	
+	print("Added cell to " + title)
+	
 	return true
 
 func remove_cell(cell_id: int) -> bool:
@@ -38,6 +40,8 @@ func remove_cell(cell_id: int) -> bool:
 	MapManager.owner_id[cell_id] = -1
 	
 	NationManager.tilemaplayer.set_cell(MapManager.idx_to_pos(cell_id), 0, Vector2i(3, 0))
+	
+	print("Removed cell from " + title)
 	
 	return true
 

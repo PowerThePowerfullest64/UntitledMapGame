@@ -44,7 +44,7 @@ func update_day_counter(day: int) -> void:
 	day_counter.text = "Day = " + str(day)
 
 func update_fps_counter() -> void:
-	fps_counter.text = str(Engine.get_frames_per_second()) + " / " + str(TimeManager.tps)
+	fps_counter.text = str(Engine.get_frames_per_second()) + " / %.1f" % TimeManager.tps
 
 func update_cell_id() -> void:
 	if not PlayerManager.is_cell_selected:

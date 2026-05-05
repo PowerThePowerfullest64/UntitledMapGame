@@ -33,6 +33,18 @@ func _process(_delta: float) -> void:
 		selected_cell_id = index
 		is_cell_selected = true
 	
+	var cell_move: Vector2i = Vector2i.ZERO
+	if Input.is_action_just_pressed("cell_up"): cell_move.y -= 1
+	if Input.is_action_just_pressed("cell_left"): cell_move.x -= 1
+	if Input.is_action_just_pressed("cell_down"): cell_move.y += 1
+	if Input.is_action_just_pressed("cell_right"): cell_move.x += 1
+	
+	var new_cell_pos: Vector2i = selected_cell + cell_move
+	
+	if is_cell_selected and cell_move != Vector2i.ZERO and MapManager.within_bounds(new_cell_pos):
+		selected_cell = new_cell_pos
+		selected_cell_id = MapManager.pos_to_idx(selected_cell)
+	
 	queue_redraw()
 
 func _draw() -> void:

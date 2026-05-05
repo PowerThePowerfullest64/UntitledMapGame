@@ -15,7 +15,7 @@ var cell_length: int = 16
 
 var updating_cells: bool = false
 var cell_index: int = 0
-const CHUNK_SIZE: int = 200000 # cells updated per frame: higher = more work in less frames
+const CHUNK_SIZE: int = 500000 # cells updated per frame: higher = more work in less frames
 
 var noise: FastNoiseLite = FastNoiseLite.new()
 
@@ -64,6 +64,8 @@ func _ready() -> void:
 	initialize()
 
 func _process(_delta: float) -> void:
+	
+	
 	if not updating_cells: return
 	
 	if cell_index >= cell_count:
@@ -77,7 +79,9 @@ func _process(_delta: float) -> void:
 	var end_index: int = cell_index + count
 	
 	for i in range(cell_index, end_index):
-		population[i] *= 1.0025
+		var births: float = population[i] * 0.00075
+		var deaths: float = population[i] * 0.0005
+		population[i] += births - deaths
 	
 	cell_index = end_index
 
