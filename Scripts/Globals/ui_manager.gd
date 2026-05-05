@@ -24,24 +24,33 @@ func _ready() -> void:
 	TimeManager.day_passed.connect(_on_day_passed)
 
 func _process(_delta: float) -> void:
-	update_fps_counter()
+	update_fps()
+	
+	update_cell_ui()
+	
+	update_nation_ui()
+
+func _on_day_passed(day: int) -> void:
+	update_day(day)
+
+func update_day(day: int) -> void:
+	day_counter.text = "Day = " + str(day)
+
+func update_fps() -> void:
+	fps_counter.text = str(Engine.get_frames_per_second()) + " / %.1f" % TimeManager.tps
+
+func update_cell_ui() -> void:
+	if not PlayerManager.is_cell_selected:
+		cell_info_panel.hide()
+		return
+	
+	cell_info_panel.show()
 	
 	# cell
 	update_cell_id()
 	update_cell_pop()
 	update_cell_owner()
 	update_cell_terrain_type()
-	
-	update_nation_ui()
-
-func _on_day_passed(day: int) -> void:
-	update_day_counter(day)
-
-func update_day_counter(day: int) -> void:
-	day_counter.text = "Day = " + str(day)
-
-func update_fps_counter() -> void:
-	fps_counter.text = str(Engine.get_frames_per_second()) + " / %.1f" % TimeManager.tps
 
 func update_cell_id() -> void:
 	if not PlayerManager.is_cell_selected:
