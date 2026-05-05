@@ -8,8 +8,8 @@ func _ready() -> void:
 	tilemaplayer = get_node("/root/main/PoliticalLayer")
 	
 	TimeManager.day_passed.connect(tick)
-	nations[0].add_cell(0)
-	nations[0].add_cell(1)
+	
+	for i in range(192*32): nations[0].add_cell(i)
 
 func update_nations() -> void:
 	for nation in nations:

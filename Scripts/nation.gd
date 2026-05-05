@@ -5,8 +5,8 @@ var id: int
 var population: float = 0.0
 var cells: Array[int] = [] # the cells which it owns stored as ids
 var area: int = 0
-var capital: float = 0.0
-var tax_rate: float = 0.01 # capital per person per day
+var capital: float = 100_000.0
+var tax_rate: float = 0.001 # capital per person per day
 
 func _init(_title: String, _id: int) -> void:
 	title = _title

@@ -1,9 +1,13 @@
 [gd_scene format=3 uid="uid://43hb11is8lmv"]
 
 [ext_resource type="Texture2D" uid="uid://digemsqhh4wfs" path="res://terrain_tilesheet.svg" id="1_ig7tw"]
-[ext_resource type="Script" uid="uid://c03dcmy8iqho5" path="res://Scripts/observer_camera.gd" id="2_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://43bk8royxski" path="res://political_tilesheet.svg" id="2_1bvp3"]
+[ext_resource type="Script" uid="uid://bycph01bwa2iu" path="res://Scripts/player.gd" id="4_lquwl"]
+[ext_resource type="Script" uid="uid://cv85jx1hflvvh" path="res://Scripts/Components/input_component.gd" id="5_7mycd"]
 [ext_resource type="Script" uid="uid://r76x31duv3gb" path="res://Scripts/Globals/ui_manager.gd" id="5_lquwl"]
+[ext_resource type="Script" uid="uid://dst6rjva8tfso" path="res://Scripts/Components/MovementComponent.gd" id="6_272bh"]
+[ext_resource type="Script" uid="uid://dlsm2blirk8v5" path="res://Scripts/player_camera.gd" id="7_5vw27"]
+[ext_resource type="Script" uid="uid://bb7sy5j6k3cl1" path="res://Scripts/Components/zoom_component.gd" id="8_kek77"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0xm2m"]
 texture = ExtResource("1_ig7tw")
@@ -32,11 +36,6 @@ tile_set = SubResource("TileSet_h2yge")
 modulate = Color(1, 1, 1, 0.6862745)
 z_index = -4
 tile_set = SubResource("TileSet_7mycd")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1269354386]
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
-script = ExtResource("2_0xm2m")
 
 [node name="UIManager" type="Control" parent="." unique_id=1342489894 node_paths=PackedStringArray("day_counter", "fps_counter", "cell_info_panel", "cell_id", "cell_pop", "cell_owner_id", "cell_terrain_type", "nation_info_panel", "nation_title", "nation_id", "nation_pop", "nation_capital", "nation_area")]
 layout_mode = 3
@@ -170,3 +169,36 @@ offset_top = 118.0
 offset_right = 99.0
 offset_bottom = 141.0
 text = "Area = "
+
+[node name="Player" type="Node2D" parent="." unique_id=2085244173 node_paths=PackedStringArray("input_component", "movement_component")]
+script = ExtResource("4_lquwl")
+input_component = NodePath("InputComponent")
+movement_component = NodePath("MovementComponent")
+
+[node name="InputComponent" type="Node" parent="Player" unique_id=788907580]
+script = ExtResource("5_7mycd")
+metadata/_custom_type_script = "uid://cv85jx1hflvvh"
+
+[node name="MovementComponent" type="Node" parent="Player" unique_id=1115757222 node_paths=PackedStringArray("target", "input_component", "camera")]
+script = ExtResource("6_272bh")
+target = NodePath("..")
+input_component = NodePath("../InputComponent")
+camera = NodePath("../Camera2D")
+metadata/_custom_type_script = "uid://dst6rjva8tfso"
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=388690362 node_paths=PackedStringArray("input_component", "zoom_component")]
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+script = ExtResource("7_5vw27")
+input_component = NodePath("InputComponent")
+zoom_component = NodePath("ZoomComponent")
+
+[node name="InputComponent" type="Node" parent="Player/Camera2D" unique_id=1840844624]
+script = ExtResource("5_7mycd")
+metadata/_custom_type_script = "uid://cv85jx1hflvvh"
+
+[node name="ZoomComponent" type="Node" parent="Player/Camera2D" unique_id=1110842916 node_paths=PackedStringArray("target", "input_component")]
+script = ExtResource("8_kek77")
+target = NodePath("..")
+input_component = NodePath("../InputComponent")
+metadata/_custom_type_script = "uid://bb7sy5j6k3cl1"

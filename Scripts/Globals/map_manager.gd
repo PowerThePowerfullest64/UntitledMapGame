@@ -5,8 +5,8 @@ var selected: PackedByteArray
 var owner_id: PackedInt32Array
 var terrain_type: PackedStringArray
 
-const width: int = 128
-const height: int = 128
+const width: int = 192
+const height: int = 192
 
 var cell_count: int # how many cells exist
 
@@ -79,7 +79,7 @@ func _process(_delta: float) -> void:
 	var end_index: int = cell_index + count
 	
 	for i in range(cell_index, end_index):
-		var births: float = population[i] * 0.00075
+		var births: float = population[i] * 0.0006
 		var deaths: float = population[i] * 0.0005
 		population[i] += births - deaths
 	
