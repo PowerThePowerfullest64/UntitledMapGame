@@ -38,7 +38,7 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 script = ExtResource("2_0xm2m")
 
-[node name="UIManager" type="Control" parent="." unique_id=1342489894 node_paths=PackedStringArray("day_counter", "fps_counter", "cell_id", "cell_pop", "cell_owner_id", "cell_terrain_type", "nation_title", "nation_id", "nation_pop", "nation_capital", "nation_area")]
+[node name="UIManager" type="Control" parent="." unique_id=1342489894 node_paths=PackedStringArray("day_counter", "fps_counter", "cell_info_panel", "cell_id", "cell_pop", "cell_owner_id", "cell_terrain_type", "nation_info_panel", "nation_title", "nation_id", "nation_pop", "nation_capital", "nation_area")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -46,10 +46,12 @@ offset_bottom = 40.0
 script = ExtResource("5_lquwl")
 day_counter = NodePath("../CanvasLayer/Day")
 fps_counter = NodePath("../CanvasLayer/FPS_TPS")
+cell_info_panel = NodePath("../CanvasLayer/CellInfoPanel")
 cell_id = NodePath("../CanvasLayer/CellInfoPanel/CellID")
 cell_pop = NodePath("../CanvasLayer/CellInfoPanel/Pop")
 cell_owner_id = NodePath("../CanvasLayer/CellInfoPanel/OwnerID")
 cell_terrain_type = NodePath("../CanvasLayer/CellInfoPanel/TerrainType")
+nation_info_panel = NodePath("../CanvasLayer/NationInfoPanel")
 nation_title = NodePath("../CanvasLayer/NationInfoPanel/NationTitle")
 nation_id = NodePath("../CanvasLayer/NationInfoPanel/NationID")
 nation_pop = NodePath("../CanvasLayer/NationInfoPanel/Pop")

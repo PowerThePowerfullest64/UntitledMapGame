@@ -6,12 +6,14 @@ var no_access_text: String = "none"
 @export var fps_counter: Label
 
 # cell specific
+@export var cell_info_panel: Panel
 @export var cell_id: Label
 @export var cell_pop: Label
 @export var cell_owner_id: Label
 @export var cell_terrain_type: Label
 
 # nation specific
+@export var nation_info_panel: Panel
 @export var nation_title: Label
 @export var nation_id: Label
 @export var nation_pop: Label
@@ -30,12 +32,7 @@ func _process(_delta: float) -> void:
 	update_cell_owner()
 	update_cell_terrain_type()
 	
-	# nation
-	update_nation_title()
-	update_nation_id()
-	update_nation_pop()
-	update_nation_capital()
-	update_nation_area()
+	update_nation_ui()
 
 func _on_day_passed(day: int) -> void:
 	update_day_counter(day)
@@ -80,66 +77,57 @@ func update_cell_terrain_type() -> void:
 	
 	cell_terrain_type.text = "TerrainType = " + MapManager.terrain_type[PlayerManager.selected_cell_id]
 
-func update_nation_title() -> void:
+func update_nation_ui() -> void:
 	if not PlayerManager.is_cell_selected:
-		nation_title.text = "Title = " + no_access_text
+		nation_info_panel.hide()
 		return
 	
 	var id: int = MapManager.owner_id[PlayerManager.selected_cell_id]
 	
 	if id == -1:
+		nation_info_panel.hide()
+		return
+	
+	nation_info_panel.show()
+	
+	# nation
+	update_nation_title(id)
+	update_nation_id(id)
+	update_nation_pop(id)
+	update_nation_capital(id)
+	update_nation_area(id)
+
+func update_nation_title(id: int) -> void:
+	if not PlayerManager.is_cell_selected:
 		nation_title.text = "Title = " + no_access_text
 		return
 	
 	nation_title.text = "Title = " + NationManager.nations[id].title
 
-func update_nation_id() -> void:
+func update_nation_id(id: int) -> void:
 	if not PlayerManager.is_cell_selected:
-		nation_id.text = "ID = " + no_access_text
-		return
-	
-	var id: int = MapManager.owner_id[PlayerManager.selected_cell_id]
-	
-	if id == -1:
 		nation_id.text = "ID = " + no_access_text
 		return
 	
 	nation_id.text = "ID = " + str(id)
 
-func update_nation_pop() -> void:
+func update_nation_pop(id: int) -> void:
 	if not PlayerManager.is_cell_selected:
 		nation_pop.text = "Pop = " + no_access_text
 		return
 	
-	var id: int = MapManager.owner_id[PlayerManager.selected_cell_id]
-	
-	if id == -1:
-		nation_pop.text = "Pop = " + no_access_text
-		return
 	
 	nation_pop.text = "Pop = %0.f" % NationManager.nations[id].population
 
-func update_nation_capital() -> void:
+func update_nation_capital(id: int) -> void:
 	if not PlayerManager.is_cell_selected:
-		nation_capital.text = "Capital = " + no_access_text
-		return
-	
-	var id: int = MapManager.owner_id[PlayerManager.selected_cell_id]
-	
-	if id == -1:
 		nation_capital.text = "Capital = " + no_access_text
 		return
 	
 	nation_capital.text = "Capital = %.0f" % NationManager.nations[id].capital
 
-func update_nation_area() -> void:
+func update_nation_area(id: int) -> void:
 	if not PlayerManager.is_cell_selected:
-		nation_area.text = "Area = " + no_access_text
-		return
-	
-	var id: int = MapManager.owner_id[PlayerManager.selected_cell_id]
-	
-	if id == -1:
 		nation_area.text = "Area = " + no_access_text
 		return
 	
