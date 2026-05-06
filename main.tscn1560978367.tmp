@@ -39,7 +39,6 @@ z_index = -4
 tile_set = SubResource("TileSet_7mycd")
 
 [node name="UIManager" type="Control" parent="." unique_id=1342489894 node_paths=PackedStringArray("day_counter", "fps_counter", "cell_info_panel", "cell_id", "cell_pop", "cell_owner_id", "cell_terrain_type", "nation_info_panel", "nation_title", "nation_id", "nation_pop", "nation_capital", "nation_area")]
-unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

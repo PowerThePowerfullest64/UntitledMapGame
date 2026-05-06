@@ -19,16 +19,4 @@ func tick(_day: int) -> void:
 	update_nations()
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("change_cell_owner"):
-		if not PlayerManager.is_cell_selected:
-			return
-		
-		var cell_owner_id: int = MapManager.owner_id[PlayerManager.selected_cell_id]
-		var new_cell_owner_id: int = cell_owner_id + 1
-		
-		if new_cell_owner_id == 3:
-			new_cell_owner_id -= 4
-			NationManager.nations[cell_owner_id].remove_cell(PlayerManager.selected_cell_id)
-			return
-		
-		NationManager.nations[new_cell_owner_id].add_cell(PlayerManager.selected_cell_id)
+	pass

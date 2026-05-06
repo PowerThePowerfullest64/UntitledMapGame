@@ -21,7 +21,6 @@ config/icon="res://icon.svg"
 MapManager="*uid://d3gwudcxcvp5j"
 TimeManager="*uid://ejaasetkjofw"
 NationManager="*uid://g1quankw816f"
-PlayerManager="*uid://crgtj4u7s0a6o"
 
 [debug]
 
