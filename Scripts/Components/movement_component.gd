@@ -1,6 +1,6 @@
 class_name MovementComponent extends Node
 
-@export var speed: float = 250.0
+@export var speed: float = 500.0
 
 @export var target: Node2D
 @export var input_component: InputComponent

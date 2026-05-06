@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://bycph01bwa2iu" path="res://Scripts/player.gd" id="4_lquwl"]
 [ext_resource type="Script" uid="uid://cv85jx1hflvvh" path="res://Scripts/Components/input_component.gd" id="5_7mycd"]
 [ext_resource type="Script" uid="uid://r76x31duv3gb" path="res://Scripts/Globals/ui_manager.gd" id="5_lquwl"]
-[ext_resource type="Script" uid="uid://dst6rjva8tfso" path="res://Scripts/Components/MovementComponent.gd" id="6_272bh"]
+[ext_resource type="Script" uid="uid://dst6rjva8tfso" path="res://Scripts/Components/movement_component.gd" id="6_272bh"]
 [ext_resource type="Script" uid="uid://dlsm2blirk8v5" path="res://Scripts/player_camera.gd" id="7_5vw27"]
 [ext_resource type="Script" uid="uid://dyieds8qqmb6t" path="res://Scripts/Components/selector_component.gd" id="7_kek77"]
 [ext_resource type="Script" uid="uid://bb7sy5j6k3cl1" path="res://Scripts/Components/zoom_component.gd" id="8_kek77"]
@@ -34,7 +34,7 @@ z_index = -5
 tile_set = SubResource("TileSet_h2yge")
 
 [node name="PoliticalLayer" type="TileMapLayer" parent="." unique_id=723631783]
-modulate = Color(1, 1, 1, 0.6862745)
+modulate = Color(1, 1, 1, 0.50980395)
 z_index = -4
 tile_set = SubResource("TileSet_7mycd")
 

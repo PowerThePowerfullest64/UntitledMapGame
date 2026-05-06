@@ -1,6 +1,6 @@
 class_name ZoomComponent extends Node
 
-@export var sensitivity: float = 1.0
+@export var sensitivity: float = 5.0
 @export var min_zoom: float = 0.1
 @export var max_zoom: float = 10.0
 ## How quickly it interpolates to target zoom

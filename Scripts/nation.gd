@@ -14,6 +14,7 @@ func _init(_title: String, _id: int) -> void:
 
 func add_cell(cell_id: int) -> bool:
 	if cells.has(cell_id): return false
+	if not MapManager.ownable[MapManager.terrain_type[cell_id]]: return false # water cannot be claimed
 	
 	var owner_id: int = MapManager.owner_id[cell_id]
 	

@@ -1,5 +1,7 @@
 extends Node
 
+@export var no_access_text: String = "None"
+
 @export var day_counter: Label
 @export var fps_counter: Label
 
@@ -47,8 +49,6 @@ func update_cell_ui(id: int) -> void:
 	update_cell_terrain_type(id)
 
 func update_cell_id(id: int) -> void:
-	
-	
 	cell_id.text = "ID = " + str(id)
 
 func update_cell_pop(id: int) -> void:
@@ -57,10 +57,14 @@ func update_cell_pop(id: int) -> void:
 func update_cell_owner(id: int) -> void:
 	var cell_owner: int = MapManager.owner_id[id]
 	
+	if cell_owner == -1:
+		cell_owner_id.text = "OwnerID = " + no_access_text
+		return
+	
 	cell_owner_id.text = "OwnerID = " + str(cell_owner)
 
 func update_cell_terrain_type(id: int) -> void:
-	cell_terrain_type.text = "TerrainType = " + MapManager.terrain_type[id]
+	cell_terrain_type.text = "TerrainType = " + MapManager.terrain_name[MapManager.terrain_type[id]]
 
 func update_nation_ui(id: int) -> void:
 	if not MapManager.selected[id] == 1:

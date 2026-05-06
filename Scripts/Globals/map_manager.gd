@@ -3,7 +3,20 @@ extends Node
 var population: PackedFloat32Array
 var selected: PackedByteArray
 var owner_id: PackedInt32Array
-var terrain_type: PackedStringArray
+var terrain_type: PackedByteArray
+
+var terrain_name: Array[String] = [
+	"Water",
+	"Grass"
+]
+var move_speed: Array[float] = [ # for later
+	1.5,
+	1.0
+]
+var ownable: Array[bool] = [
+	false,
+	true
+]
 
 const width: int = 192
 const height: int = 192
@@ -19,6 +32,9 @@ const CHUNK_SIZE: int = 500000 # cells updated per frame: higher = more work in 
 
 var noise: FastNoiseLite = FastNoiseLite.new()
 
+var water_atlas: Vector2i = Vector2i(1, 0)
+var grass_atlas: Vector2i = Vector2i.ZERO
+
 func initialize() -> void:
 	cell_count = width * height
 	
@@ -28,7 +44,7 @@ func initialize() -> void:
 	population = PackedFloat32Array()
 	selected = PackedByteArray()
 	owner_id = PackedInt32Array()
-	terrain_type = PackedStringArray()
+	terrain_type = PackedByteArray()
 	
 	population.resize(cell_count)
 	selected.resize(cell_count)
@@ -38,7 +54,7 @@ func initialize() -> void:
 	population.fill(100.0)
 	selected.fill(0)
 	owner_id.fill(-1)
-	terrain_type.fill("water")
+	terrain_type.fill(0)
 	
 	noise.seed = randi_range(0, (1 << 63) - 1)
 	noise.frequency = 0.01
@@ -51,9 +67,12 @@ func initialize() -> void:
 		var pos_2d: Vector2i = Vector2i(x, y)
 		var value: float = (noise.get_noise_2d(x, y) + 1.0) * 0.5
 		
-		terrain_type[i] = "grass" if value > 0.45 else "water"
+		terrain_type[i] = 1 if value > 0.45 else 0
 		
-		var atlas: Vector2i = Vector2i.ZERO if terrain_type[i] == "grass" else Vector2i(1, 0) if terrain_type[i] == "water" else Vector2i.ZERO
+		if not ownable[terrain_type[i]]: # in non-ownable terrain, no people live here
+			population[i] = 0.0
+		
+		var atlas: Vector2i = grass_atlas if terrain_type[i] == 1 else water_atlas if terrain_type[i] == 0 else Vector2i.ZERO
 		
 		tilemaplayer.set_cell(pos_2d, 0, atlas)
 		
@@ -64,8 +83,6 @@ func _ready() -> void:
 	initialize()
 
 func _process(_delta: float) -> void:
-	
-	
 	if not updating_cells: return
 	
 	if cell_index >= cell_count:
@@ -79,6 +96,9 @@ func _process(_delta: float) -> void:
 	var end_index: int = cell_index + count
 	
 	for i in range(cell_index, end_index):
+		if terrain_type[i] == 0: # water needs no updating
+			continue
+		
 		var births: float = population[i] * 0.0006
 		var deaths: float = population[i] * 0.0005
 		population[i] += births - deaths
