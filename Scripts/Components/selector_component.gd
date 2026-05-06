@@ -30,6 +30,23 @@ func update() -> void:
 	
 	queue_redraw()
 
+func select_cell(id: int) -> void:
+	if is_cell_selected:
+		var previous_selected_id: int = MapManager.pos_to_idx(selected_cell_pos)
+		MapManager.selected[previous_selected_id] = 0
+	
+	MapManager.selected[id] = 1
+	selected_cell_pos = MapManager.idx_to_pos(id)
+	selected_cell_id = id
+	is_cell_selected = true
+	selected_cell.emit(selected_cell_id)
+
+func deselect_cell(id: int) -> void:
+	MapManager.selected[id] = 0
+	is_cell_selected = false
+	selected_cell_id = -1
+	selected_cell.emit(selected_cell_id)
+
 func update_cell_selecting() -> void:
 	if input_component.select_pressed:
 		var cell_pos: Vector2i = MapManager.to_map_pos(get_global_mouse_position())
@@ -40,22 +57,16 @@ func update_cell_selecting() -> void:
 		
 		var id: int = MapManager.pos_to_idx(cell_pos)
 		
-		if cell_pos == selected_cell_pos and is_cell_selected:
-			MapManager.selected[id] = 0
-			is_cell_selected = false
-			selected_cell_id = -1
-			selected_cell.emit(selected_cell_id)
+		if is_cell_selected and id == selected_cell_id:
+			deselect_cell(id)
+			return
+			
+		if not MapManager.ownable[MapManager.terrain_type[id]]:
+			if is_cell_selected:
+				deselect_cell(selected_cell_id)
 			return
 		
-		if is_cell_selected:
-			var previous_selected_id: int = MapManager.pos_to_idx(selected_cell_pos)
-			MapManager.selected[previous_selected_id] = 0
-		
-		MapManager.selected[id] = 1
-		selected_cell_pos = cell_pos
-		selected_cell_id = id
-		is_cell_selected = true
-		selected_cell.emit(selected_cell_id)
+		select_cell(id)
 
 func update_cell_moving() -> void:
 	var cell_move: Vector2i = Vector2i.ZERO
@@ -69,13 +80,7 @@ func update_cell_moving() -> void:
 	if not is_cell_selected or cell_move == Vector2i.ZERO or not MapManager.within_bounds(new_cell_pos):
 		return
 	
-	var previous_id: int = MapManager.pos_to_idx(selected_cell_pos)
-	MapManager.selected[previous_id] = 0
-	
-	selected_cell_pos = new_cell_pos
-	selected_cell_id = MapManager.pos_to_idx(new_cell_pos)
-	MapManager.selected[selected_cell_id] = 1
-	selected_cell.emit(selected_cell_id)
+	select_cell(MapManager.pos_to_idx(new_cell_pos))
 
 func update_cell_transfer() -> void:
 	if input_component.transfer_cell_pressed:
