@@ -17,7 +17,7 @@ func _ready() -> void:
 	selected_cell.connect(ui_manager.update_cell_ui)
 	selected_cell.connect(ui_manager.update_nation_ui)
 	TimeManager.day_passed.connect(update_ui)
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	update()
 
 func update_ui(_day: int) -> void:
@@ -88,6 +88,7 @@ func update_cell_transfer() -> void:
 		if new_cell_owner_id == 3:
 			new_cell_owner_id -= 4
 			NationManager.nations[cell_owner_id].remove_cell(selected_cell_id)
+			selected_cell.emit(selected_cell_id)
 			return
 		
 		NationManager.nations[new_cell_owner_id].add_cell(selected_cell_id)
